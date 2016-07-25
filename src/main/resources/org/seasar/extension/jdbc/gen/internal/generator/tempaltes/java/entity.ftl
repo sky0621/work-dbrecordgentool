@@ -2,80 +2,56 @@
 package ${packageName};
 </#if>
 
-<#list importNameSet as importName>
-import ${importName};
-</#list>
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import xyz.skycat.work.dbrecordgentool.Parameter;
-import xyz.skycat.work.dbrecordgentool.base.AbstractService;
-<#if staticImportNameSet?size gt 0>
-
-  <#list staticImportNameSet as importName>
-import static ${importName};
-  </#list>
-</#if>
+import xyz.skycat.work.dbrecordgentool.base.AbstractEntity;
 
 /**
  * @author Shotaro.S
  *
  */
-public class ${shortClassName} extends AbstractService implements ${shortClassName}Names {
-<#list attributeModelList as attr>
+public class ${shortClassName} extends AbstractEntity implements Serializable {
 
-  <#if attr.id>
-    @Id
-    <#if attr.generationType??>
-    @GeneratedValue(strategy = GenerationType.${attr.generationType}<#if attr.generationType?matches("SEQUENCE|TABLE")>, generator = "generator"</#if>)
-      <#if attr.generationType == "SEQUENCE">
-    @SequenceGenerator(name = "generator", initialValue = ${attr.initialValue}, allocationSize = ${attr.allocationSize})
-      <#elseif attr.generationType == "TABLE">
-    @TableGenerator(name = "generator", initialValue = ${attr.initialValue}, allocationSize = ${attr.allocationSize})
-      </#if>
-    </#if>
-  </#if>
-    <#if useAccessor>private<#else>public</#if> ${attr.attributeClass.simpleName} ${attr.name};
+    private static final long serialVersionUID = 1L;
+
+    /*
+     * Column Name
+     */
+<#list attributeModelList as attr>
+    public static final String ${attr.columnName} = "${attr.columnName}";
 </#list>
 
-<#if useAccessor>
-  <#list attributeModelList as attr>
-
-    /**
-     * ${attr.name}を返します。
-     *
-     * @param ${attr.name}
+    /*
+     * Default Value
      */
-    public ${attr.attributeClass.simpleName} <#if attr.attributeClass.getSimpleName()?matches("[bB]oolean")>is<#else>get</#if>${attr.name?cap_first}() {
-        return ${attr.name};
+<#list attributeModelList as attr>
+  <#if (str!attr.attributeClass.simpleName) == "Date">
+    public java.util.${attr.attributeClass.simpleName} _${attr.name};
+  <#else>
+    public ${attr.attributeClass.simpleName} _${attr.name};
+  </#if>
+</#list>
+
+    public ${shortClassName}(Parameter p) {
+        super(p);
     }
 
-    /**
-     * ${attr.name}を設定します。
-     *
-     * @param ${attr.name}
-     */
-    public void set${attr.name?cap_first}(${attr.attributeClass.simpleName} ${attr.name}) {
-        this.${attr.name} = ${attr.name};
-    }
-  </#list>
-  <#list associationModelList as asso>
-
-    /**
-     * ${asso.name}を返します。
-     *
-     * @param ${asso.name}
-     */
-    public ${asso.shortClassName} get${asso.name?cap_first}() {
-        return ${asso.name};
+    @Override
+    public String getTableName() {
+        return "${tableName}";
     }
 
-    /**
-     * ${asso.name}を設定します。
-     *
-     * @param ${asso.name}
-     */
-    public void set${asso.name?cap_first}(${asso.shortClassName} ${asso.name}) {
-        this.${asso.name} = ${asso.name};
+    @Override
+    public Map<String, Object> getDefaultValueMap() {
+        Map<String, Object> map = new HashMap<String, Object>();
+<#list attributeModelList as attr>
+        map.put("${attr.columnName}", _${attr.name});
+</#list>
+        map.put(p.sysColumnName, p.sysColumnValue);
+        return map;
     }
-  </#list>
-</#if>
+
 }

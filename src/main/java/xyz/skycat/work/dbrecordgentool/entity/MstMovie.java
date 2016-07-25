@@ -1,69 +1,63 @@
 package xyz.skycat.work.dbrecordgentool.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.util.List;
-import javax.annotation.Generated;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import java.util.HashMap;
+import java.util.Map;
 
 import xyz.skycat.work.dbrecordgentool.Parameter;
-import xyz.skycat.work.dbrecordgentool.base.AbstractService;
+import xyz.skycat.work.dbrecordgentool.base.AbstractEntity;
 
 /**
  * @author Shotaro.S
  *
  */
-public class MstMovie extends AbstractService implements MstMovieNames {
+public class MstMovie extends AbstractEntity implements Serializable {
 
+    private static final long serialVersionUID = 1L;
 
-    /** movieIdプロパティ */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(precision = 10, nullable = false, unique = true)
-    public Long movieId;
+    /*
+     * Column Name
+     */
+    public static final String movie_id = "movie_id";
+    public static final String movie_title = "movie_title";
+    public static final String movie_filename = "movie_filename";
+    public static final String movie_time = "movie_time";
+    public static final String movie_take_date = "movie_take_date";
+    public static final String del_flg = "del_flg";
+    public static final String ins_id = "ins_id";
 
-    /** movieTitleプロパティ */
-    @Column(length = 255, nullable = false, unique = false)
-    public String movieTitle;
+    /*
+     * Default Value
+     */
+    public Long _movieId;
+    public String _movieTitle;
+    public String _movieFilename;
+    public String _movieTime;
+    public java.util.Date _movieTakeDate;
+    public Boolean _delFlg;
+    public String _insId;
 
-    /** movieFilenameプロパティ */
-    @Column(length = 255, nullable = false, unique = false)
-    public String movieFilename;
+    public MstMovie(Parameter p) {
+        super(p);
+    }
 
-    /** movieTimeプロパティ */
-    @Column(length = 20, nullable = false, unique = false)
-    public String movieTime;
+    @Override
+    public String getTableName() {
+        return "mst_movie";
+    }
 
-    /** movieTakeDateプロパティ */
-    @Column(nullable = false, unique = false)
-    public Date movieTakeDate;
+    @Override
+    public Map<String, Object> getDefaultValueMap() {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("movie_id", _movieId);
+        map.put("movie_title", _movieTitle);
+        map.put("movie_filename", _movieFilename);
+        map.put("movie_time", _movieTime);
+        map.put("movie_take_date", _movieTakeDate);
+        map.put("del_flg", _delFlg);
+        map.put("ins_id", _insId);
+        map.put(p.sysColumnName, p.sysColumnValue);
+        return map;
+    }
 
-    /** delFlgプロパティ */
-    @Column(nullable = false, unique = false)
-    public Boolean delFlg;
-
-    /** insIdプロパティ */
-    @Column(length = 45, nullable = false, unique = false)
-    public String insId;
-
-    /** relCategoryMovieList関連プロパティRERERERE */
-    @OneToMany(mappedBy = "mstMovie")
-    public List<RelCategoryMovie> relCategoryMovieList;
-
-    /** relRecommendMovieList関連プロパティRERERERE */
-    @OneToMany(mappedBy = "mstMovie")
-    public List<RelRecommendMovie> relRecommendMovieList;
-
-    /** trnFavoriteList関連プロパティRERERERE */
-    @OneToMany(mappedBy = "mstMovie")
-    public List<TrnFavorite> trnFavoriteList;
-
-    /** trnViewHistoryList関連プロパティRERERERE */
-    @OneToMany(mappedBy = "mstMovie")
-    public List<TrnViewHistory> trnViewHistoryList;
 }

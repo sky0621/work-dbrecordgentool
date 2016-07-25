@@ -1,36 +1,48 @@
 package xyz.skycat.work.dbrecordgentool.entity;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.annotation.Generated;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import java.util.HashMap;
+import java.util.Map;
 
 import xyz.skycat.work.dbrecordgentool.Parameter;
-import xyz.skycat.work.dbrecordgentool.base.AbstractService;
+import xyz.skycat.work.dbrecordgentool.base.AbstractEntity;
 
 /**
  * @author Shotaro.S
  *
  */
-public class MstRecommend extends AbstractService implements MstRecommendNames {
+public class MstRecommend extends AbstractEntity implements Serializable {
 
+    private static final long serialVersionUID = 1L;
 
-    /** recommendIdプロパティ */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(precision = 10, nullable = false, unique = true)
-    public Long recommendId;
+    /*
+     * Column Name
+     */
+    public static final String recommend_id = "recommend_id";
+    public static final String recommend_title = "recommend_title";
 
-    /** recommendTitleプロパティ */
-    @Column(length = 255, nullable = true, unique = false)
-    public String recommendTitle;
+    /*
+     * Default Value
+     */
+    public Long _recommendId;
+    public String _recommendTitle;
 
-    /** relRecommendMovieList関連プロパティRERERERE */
-    @OneToMany(mappedBy = "mstRecommend")
-    public List<RelRecommendMovie> relRecommendMovieList;
+    public MstRecommend(Parameter p) {
+        super(p);
+    }
+
+    @Override
+    public String getTableName() {
+        return "mst_recommend";
+    }
+
+    @Override
+    public Map<String, Object> getDefaultValueMap() {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("recommend_id", _recommendId);
+        map.put("recommend_title", _recommendTitle);
+        map.put(p.sysColumnName, p.sysColumnValue);
+        return map;
+    }
+
 }

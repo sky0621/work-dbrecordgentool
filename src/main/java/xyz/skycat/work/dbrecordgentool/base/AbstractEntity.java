@@ -2,6 +2,8 @@ package xyz.skycat.work.dbrecordgentool.base;
 
 import static com.ninja_squad.dbsetup.Operations.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,11 +19,13 @@ import com.ninja_squad.dbsetup.operation.Operation;
  * @author Shotaro.S
  *
  */
-public abstract class AbstractService {
+public abstract class AbstractEntity {
 
 	protected Parameter p;
 
-	public AbstractService(Parameter p) {
+	protected List<Map<String, Object>> columnsList;
+
+	public AbstractEntity(Parameter p) {
 
 		this.p = p;
 	}
@@ -66,8 +70,18 @@ public abstract class AbstractService {
 
 	public abstract Map<String, Object> getDefaultValueMap();
 
-	public abstract void setColumnsList(List<Map<String, Object>> columnsList);
+    protected void setColumnsList(List<Map<String, Object>> columnsList) {
+        this.columnsList = columnsList;
+    }
 
-	public abstract List<Map<String, Object>> getColumnsList();
+    protected List<Map<String, Object>> getColumnsList() {
+        if (columnsList == null) {
+            columnsList = new ArrayList<Map<String, Object>>();
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("MOVIE_ID", 777);
+            columnsList.add(map);
+        }
+        return columnsList;
+    }
 
 }

@@ -7,19 +7,12 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry including="**/*.java" kind="src" path="src/main/resources"/>
-	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
-		<attributes>
-			<attribute name="optional" value="true"/>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry including="**/*.java" kind="src" output="target/test-classes" path="src/test/resources"/>
 	<classpathentry kind="lib" path="lib/aopalliance-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/cglib-nodep-2.1_3.jar"/>
 	<classpathentry kind="lib" path="lib/commons-logging-1.1.jar" sourcepath="lib/sources/commons-logging-1.1-sources.jar"/>
 	<classpathentry kind="lib" path="lib/easymock-2.4.jar" sourcepath="lib/sources/easymock-2.4-sources.jar"/>
 	<classpathentry kind="lib" path="lib/easymockclassextension-2.4.jar" sourcepath="lib/sources/easymockclassextension-2.4-sources.jar"/>
-	<classpathentry kind="lib" path="lib/freemarker-2.3.13.jar"/>
+	<classpathentry kind="lib" path="lib/freemarker-2.3.13.jar" sourcepath="lib/sources/apache-freemarker-2.3.25-incubating-src.zip"/>
 	<classpathentry kind="lib" path="lib/geronimo-annotation_1.0_spec-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/geronimo-jpa_3.0_spec-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/geronimo-jta_1.1_spec-1.0.jar"/>
@@ -33,7 +26,7 @@
 	<classpathentry kind="lib" path="lib/s2-extension-2.4.46.jar" sourcepath="lib/sources/s2-extension-2.4.46-sources.jar"/>
 	<classpathentry kind="lib" path="lib/s2-framework-2.4.46.jar" sourcepath="lib/sources/s2-framework-2.4.46-sources.jar"/>
 	<classpathentry kind="lib" path="lib/s2-tiger-2.4.46.jar" sourcepath="lib/sources/s2-tiger-2.4.46-sources.jar"/>
-	<classpathentry kind="lib" path="lib/s2jdbc-gen-2.4.46.jar"/>
+	<classpathentry kind="lib" path="lib/s2jdbc-gen-2.4.46.jar" sourcepath="lib/sources/S2JDBC-Gen-2.4.46.zip"/>
 	<classpathentry kind="lib" path="lib/svnkit-1.2.0.4949.jar"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.39-bin.jar"/>
 	<classpathentry kind="lib" path="lib/DbSetup-1.6.0.jar"/>

@@ -33,30 +33,15 @@
       env="${env}"
       jdbcmanagername="${jdbcmanagername}"
       overwrite="true"
+      showCatalogName="true"
+      showSchemaName="true"
+      showTableName="true"
+      showColumnName="true"
+      showColumnDefinition="true"
+      showJoinColumn="true"
       classpathref="classpath">
         <jvmarg value="${vmarg.encoding}"/>
     </gen-entity>
-    <gen-names
-      classpathdir="${classpathdir}"
-      rootpackagename="${rootpackagename}"
-      entitypackagename="${entitypackagename}"
-      javafiledestdir="${javafiledestdir}"
-      javafileencoding="${javafileencoding}"
-      env="${env}"
-      jdbcmanagername="${jdbcmanagername}"
-      overwrite="true"
-      classpathref="classpath">
-        <jvmarg value="${vmarg.encoding}"/>
-    </gen-names>
-    <javac
-      srcdir="${javafiledestdir}"
-      destdir="${classpathdir}"
-      encoding="${javafileencoding}"
-      fork="true"
-      debug="on"
-      classpathref="classpath">
-      <include name="${entityfilepattern}"/>
-    </javac>
   </target>
 
 </project>

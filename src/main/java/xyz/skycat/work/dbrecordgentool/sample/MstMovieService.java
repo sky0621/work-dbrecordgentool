@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 import xyz.skycat.work.dbrecordgentool.Parameter;
-import xyz.skycat.work.dbrecordgentool.base.AbstractService;
+import xyz.skycat.work.dbrecordgentool.base.AbstractEntity;
 
-public class MstMovieService extends AbstractService {
+public class MstMovieService extends AbstractEntity {
 
     /*
      * Column Name

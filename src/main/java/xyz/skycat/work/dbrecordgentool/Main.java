@@ -1,5 +1,7 @@
 package xyz.skycat.work.dbrecordgentool;
 
+import xyz.skycat.work.dbrecordgentool.entity.MstMovie;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -9,7 +11,7 @@ public class Main {
 
             // FIXME 投入するデータはExcel管理（テーブル別のファイル）した方が無難
             // FIXME まず、データ投入する対象のテーブルかどうかをテキストファイルから読み込んで
-            MstMovieService mm = new MstMovieService(p);
+            MstMovie mm = new MstMovie(p);
             mm.operation();
 
         } catch (Throwable t) {

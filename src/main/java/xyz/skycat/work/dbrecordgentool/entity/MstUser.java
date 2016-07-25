@@ -1,48 +1,54 @@
 package xyz.skycat.work.dbrecordgentool.entity;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.annotation.Generated;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import java.util.HashMap;
+import java.util.Map;
 
 import xyz.skycat.work.dbrecordgentool.Parameter;
-import xyz.skycat.work.dbrecordgentool.base.AbstractService;
+import xyz.skycat.work.dbrecordgentool.base.AbstractEntity;
 
 /**
  * @author Shotaro.S
  *
  */
-public class MstUser extends AbstractService implements MstUserNames {
+public class MstUser extends AbstractEntity implements Serializable {
 
+    private static final long serialVersionUID = 1L;
 
-    /** idプロパティ */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(precision = 10, nullable = false, unique = true)
-    public Long id;
+    /*
+     * Column Name
+     */
+    public static final String id = "id";
+    public static final String user_id = "user_id";
+    public static final String user_password = "user_password";
+    public static final String del_flg = "del_flg";
 
-    /** userIdプロパティ */
-    @Column(length = 20, nullable = false, unique = false)
-    public String userId;
+    /*
+     * Default Value
+     */
+    public Long _id;
+    public String _userId;
+    public String _userPassword;
+    public Boolean _delFlg;
 
-    /** userPasswordプロパティ */
-    @Column(length = 255, nullable = false, unique = false)
-    public String userPassword;
+    public MstUser(Parameter p) {
+        super(p);
+    }
 
-    /** delFlgプロパティ */
-    @Column(nullable = false, unique = false)
-    public Boolean delFlg;
+    @Override
+    public String getTableName() {
+        return "mst_user";
+    }
 
-    /** trnFavoriteList関連プロパティRERERERE */
-    @OneToMany(mappedBy = "mstUser")
-    public List<TrnFavorite> trnFavoriteList;
+    @Override
+    public Map<String, Object> getDefaultValueMap() {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("id", _id);
+        map.put("user_id", _userId);
+        map.put("user_password", _userPassword);
+        map.put("del_flg", _delFlg);
+        map.put(p.sysColumnName, p.sysColumnValue);
+        return map;
+    }
 
-    /** trnViewHistoryList関連プロパティRERERERE */
-    @OneToMany(mappedBy = "mstUser")
-    public List<TrnViewHistory> trnViewHistoryList;
 }
