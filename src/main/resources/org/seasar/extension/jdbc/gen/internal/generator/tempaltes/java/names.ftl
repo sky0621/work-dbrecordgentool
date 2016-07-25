@@ -12,18 +12,12 @@ import static ${importName};
   </#list>
 </#if>
 
-@Generated(value = {<#list generatedInfoList as info>"${info}"<#if info_has_next>, </#if></#list>}, date = "${currentDate?datetime}")
 public interface ${shortClassName} implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 <#list namesAttributeModelList as attr>
 
-    /**
-     * ${attr.name}のプロパティ名を返します。
-     *
-     * @return ${attr.name}のプロパティ名
-     */
-    public static PropertyName<${attr.attributeClass.simpleName}> ${attr.name}() {
-        return new PropertyName<${attr.attributeClass.simpleName}>("${attr.name}");
-    }
+    public static final String ${attr.attributeClass.simpleName} = "${attr.attributeClass.simpleName}";
 </#list>
 <#list namesAssociationModelList as asso>
 

@@ -1,10 +1,3 @@
-<#import "/lib.ftl" as lib>
-<#if lib.copyright??>
-${lib.copyright}
-</#if>
-<#if !lib.copyright??>
-<#include "/copyright.ftl">
-</#if>
 <#if packageName??>
 package ${packageName};
 </#if>
@@ -12,6 +5,9 @@ package ${packageName};
 <#list importNameSet as importName>
 import ${importName};
 </#list>
+
+import xyz.skycat.work.dbrecordgentool.Parameter;
+import xyz.skycat.work.dbrecordgentool.base.AbstractService;
 <#if staticImportNameSet?size gt 0>
 
   <#list staticImportNameSet as importName>
@@ -20,37 +16,12 @@ import static ${importName};
 </#if>
 
 /**
-<#if useComment && comment??>
- * ${comment}
-<#else>
- * ${shortClassName}エンティティクラスTWEWEWsEW
-</#if>
+ * @author Shotaro.S
  *
-<#if lib.author??>
- * @author ${lib.author}
-</#if>
  */
-@Entity
-<#if catalogName?? || schemaName?? || tableName?? || compositeUniqueConstraintModelList?size gt 0>
-@Table(<#if catalogName??>catalog = "${catalogName}"</#if><#if schemaName??><#if catalogName??>, </#if>schema = "${schemaName}"</#if><#if tableName??><#if catalogName?? || schemaName??>, </#if>name = "${tableName}"</#if><#if compositeUniqueConstraintModelList?size gt 0><#if catalogName?? || schemaName?? || tableName??>, </#if>uniqueConstraints = { <#list compositeUniqueConstraintModelList as uniqueConstraint>@UniqueConstraint(columnNames = { <#list uniqueConstraint.columnNameList as columnName>"${columnName}"<#if columnName_has_next>, </#if></#list> })<#if uniqueConstraint_has_next>, </#if></#list> }</#if>)
-</#if>
-@Generated(value = {<#list generatedInfoList as info>"${info}"<#if info_has_next>, </#if></#list>}, date = "${currentDate?datetime}")
-public class ${shortClassName}<#if shortSuperclassName??> extends ${shortSuperclassName}</#if> implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class ${shortClassName} extends AbstractService implements ${shortClassName}Names {
 <#list attributeModelList as attr>
 
-  <#if attr.unsupportedColumnType>
-    /**
-     * FIXME このプロパティに対応するカラムの型(${attr.columnTypeName})はサポート対象外です。
-     */
-  <#else>
-    <#if useComment && attr.comment??>
-    /** ${attr.comment} */
-    <#else>
-    /** ${attr.name}プロパティ */
-    </#if>
-  </#if>
   <#if attr.id>
     @Id
     <#if attr.generationType??>
@@ -62,37 +33,9 @@ public class ${shortClassName}<#if shortSuperclassName??> extends ${shortSupercl
       </#if>
     </#if>
   </#if>
-  <#if attr.lob>
-    @Lob
-  </#if>
-  <#if attr.temporalType??>
-    @Temporal(TemporalType.${attr.temporalType})
-  </#if>
-  <#if attr.transient>
-    @Transient
-  </#if>
-  <#if attr.version>
-    @Version
-  </#if>
-  <#if !attr.transient>
-    @Column(<#if attr.columnName??>name = "${attr.columnName}", </#if><#if attr.columnDefinition??>columnDefinition = "${attr.columnDefinition}", <#else><#if attr.length??>length = ${attr.length}, </#if><#if attr.precision??>precision = ${attr.precision}, </#if><#if attr.scale??>scale = ${attr.scale}, </#if></#if>nullable = ${attr.nullable?string}, unique = ${attr.unique?string})
-  </#if>
     <#if useAccessor>private<#else>public</#if> ${attr.attributeClass.simpleName} ${attr.name};
 </#list>
-<#list associationModelList as asso>
 
-    /** ${asso.name}関連プロパティRERERERE */
-    @${asso.associationType.annotation.simpleName}<#if asso.mappedBy??>(mappedBy = "${asso.mappedBy}")</#if>
-  <#if asso.joinColumnModel??>
-    @JoinColumn(name = "${asso.joinColumnModel.name}", referencedColumnName = "${asso.joinColumnModel.referencedColumnName}")
-  <#elseif asso.joinColumnsModel??>
-    @JoinColumns( {
-    <#list asso.joinColumnsModel.joinColumnModelList as joinColumnModel>
-        @JoinColumn(name = "${joinColumnModel.name}", referencedColumnName = "${joinColumnModel.referencedColumnName}")<#if joinColumnModel_has_next>,<#else> })</#if>
-    </#list>
-  </#if>
-    <#if useAccessor>private<#else>public</#if> ${asso.shortClassName} ${asso.name};
-</#list>
 <#if useAccessor>
   <#list attributeModelList as attr>
 

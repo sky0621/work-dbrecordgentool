@@ -11,15 +11,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import xyz.skycat.work.dbrecordgentool.Parameter;
+import xyz.skycat.work.dbrecordgentool.base.AbstractService;
+
 /**
- * MstMovieエンティティクラスTWEWEWsEW
+ * @author Shotaro.S
  *
  */
-@Entity
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2016/07/25 23:59:59")
-public class MstMovie implements Serializable {
+public class MstMovie extends AbstractService implements MstMovieNames {
 
-    private static final long serialVersionUID = 1L;
 
     /** movieIdプロパティ */
     @Id

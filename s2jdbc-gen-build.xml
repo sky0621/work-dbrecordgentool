@@ -3,13 +3,9 @@
   <property name="classpathdir" value="target/classes"/>
   <property name="rootpackagename" value="xyz.skycat.work.dbrecordgentool"/>
   <property name="entitypackagename" value="entity"/>
-  <property name="entityfilepattern" value="xyz/skycat/work/dbrecordgentool/entity/**/*.java"/>
+  <property name="entityfilepattern" value="xyz/skycat/work/dbrecordgentool/entity/*.java"/>
   <property name="javafiledestdir" value="src/main/java"/>
   <property name="javafileencoding" value="UTF-8"/>
-  <property name="version" value="latest"/>
-  <property name="sqlfilepattern" value="META-INF/sql/**/*.sql"/>
-  <property name="applyenvtoversion" value="false"/>
-  <property name="uses2junit4" value="false"/>
   <property name="env" value="ut"/>
   <property name="jdbcmanagername" value="jdbcManager"/>
   <condition property="vmarg.encoding" value="-Dfile.encoding=UTF-8" else="">
@@ -36,9 +32,22 @@
       javafileencoding="${javafileencoding}"
       env="${env}"
       jdbcmanagername="${jdbcmanagername}"
+      overwrite="true"
       classpathref="classpath">
         <jvmarg value="${vmarg.encoding}"/>
     </gen-entity>
+    <gen-names
+      classpathdir="${classpathdir}"
+      rootpackagename="${rootpackagename}"
+      entitypackagename="${entitypackagename}"
+      javafiledestdir="${javafiledestdir}"
+      javafileencoding="${javafileencoding}"
+      env="${env}"
+      jdbcmanagername="${jdbcmanagername}"
+      overwrite="true"
+      classpathref="classpath">
+        <jvmarg value="${vmarg.encoding}"/>
+    </gen-names>
     <javac
       srcdir="${javafiledestdir}"
       destdir="${classpathdir}"
@@ -48,17 +57,6 @@
       classpathref="classpath">
       <include name="${entityfilepattern}"/>
     </javac>
-    <gen-names
-      classpathdir="${classpathdir}"
-      rootpackagename="${rootpackagename}"
-      entitypackagename="${entitypackagename}"
-      javafiledestdir="${javafiledestdir}"
-      javafileencoding="${javafileencoding}"
-      env="${env}"
-      jdbcmanagername="${jdbcmanagername}"
-      classpathref="classpath">
-        <jvmarg value="${vmarg.encoding}"/>
-    </gen-names>
   </target>
 
 </project>

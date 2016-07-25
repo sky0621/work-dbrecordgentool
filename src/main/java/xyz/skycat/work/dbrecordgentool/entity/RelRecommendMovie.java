@@ -7,15 +7,15 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import xyz.skycat.work.dbrecordgentool.Parameter;
+import xyz.skycat.work.dbrecordgentool.base.AbstractService;
+
 /**
- * RelRecommendMovieエンティティクラスTWEWEWsEW
+ * @author Shotaro.S
  *
  */
-@Entity
-@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2016/07/26 0:00:00")
-public class RelRecommendMovie implements Serializable {
+public class RelRecommendMovie extends AbstractService implements RelRecommendMovieNames {
 
-    private static final long serialVersionUID = 1L;
 
     /** mstMovieMovieIdプロパティ */
     @Column(precision = 10, nullable = false, unique = false)
