@@ -1,0 +1,64 @@
+<project name="work-dbrecordgentool-s2jdbc-gen" default="gen-entity" basedir=".">
+
+  <property name="classpathdir" value="target/classes"/>
+  <property name="rootpackagename" value="xyz.skycat.work.dbrecordgentool"/>
+  <property name="entitypackagename" value="entity"/>
+  <property name="entityfilepattern" value="xyz/skycat/work/dbrecordgentool/entity/**/*.java"/>
+  <property name="javafiledestdir" value="src/main/java"/>
+  <property name="javafileencoding" value="UTF-8"/>
+  <property name="version" value="latest"/>
+  <property name="sqlfilepattern" value="META-INF/sql/**/*.sql"/>
+  <property name="applyenvtoversion" value="false"/>
+  <property name="uses2junit4" value="false"/>
+  <property name="env" value="ut"/>
+  <property name="jdbcmanagername" value="jdbcManager"/>
+  <condition property="vmarg.encoding" value="-Dfile.encoding=UTF-8" else="">
+    <isset property="eclipse.pdebuild.home"/>
+  </condition>
+
+  <path id="classpath">
+    <pathelement location="${classpathdir}"/>
+    <fileset dir="lib">
+      <exclude name="lib/sources/**"/>
+    </fileset>
+    <fileset dir="lib">
+      <exclude name="lib/sources/**"/>
+    </fileset>
+  </path>
+
+  <taskdef resource="s2jdbc-gen-task.properties" classpathref="classpath"/>
+
+  <target name="gen-entity">
+    <gen-entity
+      rootpackagename="${rootpackagename}"
+      entitypackagename="${entitypackagename}"
+      javafiledestdir="${javafiledestdir}"
+      javafileencoding="${javafileencoding}"
+      env="${env}"
+      jdbcmanagername="${jdbcmanagername}"
+      classpathref="classpath">
+        <jvmarg value="${vmarg.encoding}"/>
+    </gen-entity>
+    <javac
+      srcdir="${javafiledestdir}"
+      destdir="${classpathdir}"
+      encoding="${javafileencoding}"
+      fork="true"
+      debug="on"
+      classpathref="classpath">
+      <include name="${entityfilepattern}"/>
+    </javac>
+    <gen-names
+      classpathdir="${classpathdir}"
+      rootpackagename="${rootpackagename}"
+      entitypackagename="${entitypackagename}"
+      javafiledestdir="${javafiledestdir}"
+      javafileencoding="${javafileencoding}"
+      env="${env}"
+      jdbcmanagername="${jdbcmanagername}"
+      classpathref="classpath">
+        <jvmarg value="${vmarg.encoding}"/>
+    </gen-names>
+  </target>
+
+</project>

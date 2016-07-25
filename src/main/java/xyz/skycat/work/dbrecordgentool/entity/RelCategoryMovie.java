@@ -1,0 +1,37 @@
+package xyz.skycat.work.dbrecordgentool.entity;
+
+import java.io.Serializable;
+import javax.annotation.Generated;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+/**
+ * RelCategoryMovieエンティティクラスTWEWEWsEW
+ *
+ */
+@Entity
+@Generated(value = {"S2JDBC-Gen 2.4.46", "org.seasar.extension.jdbc.gen.internal.model.EntityModelFactoryImpl"}, date = "2016/07/25 23:59:59")
+public class RelCategoryMovie implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    /** mstMovieMovieIdプロパティ */
+    @Column(precision = 10, nullable = false, unique = false)
+    public Long mstMovieMovieId;
+
+    /** mstCategoryCategoryIdプロパティ */
+    @Column(precision = 10, nullable = false, unique = false)
+    public Long mstCategoryCategoryId;
+
+    /** mstCategory関連プロパティRERERERE */
+    @ManyToOne
+    @JoinColumn(name = "mst_category_category_id", referencedColumnName = "category_id")
+    public MstCategory mstCategory;
+
+    /** mstMovie関連プロパティRERERERE */
+    @ManyToOne
+    @JoinColumn(name = "mst_movie_movie_id", referencedColumnName = "movie_id")
+    public MstMovie mstMovie;
+}
