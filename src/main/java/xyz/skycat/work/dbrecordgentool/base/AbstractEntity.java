@@ -3,7 +3,6 @@ package xyz.skycat.work.dbrecordgentool.base;
 import static com.ninja_squad.dbsetup.Operations.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,6 +36,14 @@ public abstract class AbstractEntity {
 		Builder builder = insertInto(getTableName());
 
 		Map<String, Object> defValueMap = getDefaultValueMap();
+		for (Map<String, Object> valueMap : getColumnsList()) {
+			for (String key : valueMap.keySet()) {
+				Object v = valueMap.get(key);
+				if (v != null) {
+					defValueMap.remove(key);
+				}
+			}
+		}
 		for (String key : defValueMap.keySet()) {
 			builder = builder.withDefaultValue(key, defValueMap.get(key));
 		}
@@ -65,23 +72,23 @@ public abstract class AbstractEntity {
 	public abstract String getTableName();
 
 	protected String getWhereString() {
-		return p.sysColumnName + " = \"" + p.sysColumnValue + "\"";
+		return "INS_ID = \"" + p.sysColumnValue + "\"";
 	}
 
 	public abstract Map<String, Object> getDefaultValueMap();
 
-    protected void setColumnsList(List<Map<String, Object>> columnsList) {
-        this.columnsList = columnsList;
-    }
+	public void setColumnsList(List<Map<String, Object>> columnsList) {
+		this.columnsList = columnsList;
+	}
 
-    protected List<Map<String, Object>> getColumnsList() {
-        if (columnsList == null) {
-            columnsList = new ArrayList<Map<String, Object>>();
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("MOVIE_ID", 777);
-            columnsList.add(map);
-        }
-        return columnsList;
-    }
+	public List<Map<String, Object>> getColumnsList() {
+		if (columnsList == null) {
+			columnsList = new ArrayList<Map<String, Object>>();
+			// Map<String, Object> map = new HashMap<String, Object>();
+			// map.put("MOVIE_ID", 777);
+			// columnsList.add(map);
+		}
+		return columnsList;
+	}
 
 }

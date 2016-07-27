@@ -18,14 +18,14 @@ public class TrnViewHistory extends AbstractEntity implements Serializable {
     /*
      * Column Name
      */
-    public static final String mst_movie_movie_id = "mst_movie_movie_id";
-    public static final String mst_user_id = "mst_user_id";
+    public static final String mst_movie_movie_id = "mst_movie_movie_id".toUpperCase();
+    public static final String mst_user_id = "mst_user_id".toUpperCase();
 
     /*
      * Default Value
      */
-    public Long _mstMovieMovieId;
-    public Long _mstUserId;
+    public long _mstMovieMovieId;
+    public long _mstUserId;
 
     public TrnViewHistory(Parameter p) {
         super(p);
@@ -39,9 +39,8 @@ public class TrnViewHistory extends AbstractEntity implements Serializable {
     @Override
     public Map<String, Object> getDefaultValueMap() {
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("mst_movie_movie_id", _mstMovieMovieId);
-        map.put("mst_user_id", _mstUserId);
-        map.put(p.sysColumnName, p.sysColumnValue);
+        map.put("mst_movie_movie_id".toUpperCase(), _mstMovieMovieId);
+        map.put("mst_user_id".toUpperCase(), _mstUserId);
         return map;
     }
 

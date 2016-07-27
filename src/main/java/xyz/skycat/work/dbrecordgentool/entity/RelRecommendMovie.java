@@ -18,14 +18,14 @@ public class RelRecommendMovie extends AbstractEntity implements Serializable {
     /*
      * Column Name
      */
-    public static final String mst_movie_movie_id = "mst_movie_movie_id";
-    public static final String mst_recommend_recommend_id = "mst_recommend_recommend_id";
+    public static final String mst_movie_movie_id = "mst_movie_movie_id".toUpperCase();
+    public static final String mst_recommend_recommend_id = "mst_recommend_recommend_id".toUpperCase();
 
     /*
      * Default Value
      */
-    public Long _mstMovieMovieId;
-    public Long _mstRecommendRecommendId;
+    public long _mstMovieMovieId;
+    public long _mstRecommendRecommendId;
 
     public RelRecommendMovie(Parameter p) {
         super(p);
@@ -39,9 +39,8 @@ public class RelRecommendMovie extends AbstractEntity implements Serializable {
     @Override
     public Map<String, Object> getDefaultValueMap() {
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("mst_movie_movie_id", _mstMovieMovieId);
-        map.put("mst_recommend_recommend_id", _mstRecommendRecommendId);
-        map.put(p.sysColumnName, p.sysColumnValue);
+        map.put("mst_movie_movie_id".toUpperCase(), _mstMovieMovieId);
+        map.put("mst_recommend_recommend_id".toUpperCase(), _mstRecommendRecommendId);
         return map;
     }
 

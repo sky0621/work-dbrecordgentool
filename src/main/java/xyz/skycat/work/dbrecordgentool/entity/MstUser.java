@@ -18,18 +18,18 @@ public class MstUser extends AbstractEntity implements Serializable {
     /*
      * Column Name
      */
-    public static final String id = "id";
-    public static final String user_id = "user_id";
-    public static final String user_password = "user_password";
-    public static final String del_flg = "del_flg";
+    public static final String id = "id".toUpperCase();
+    public static final String user_id = "user_id".toUpperCase();
+    public static final String user_password = "user_password".toUpperCase();
+    public static final String del_flg = "del_flg".toUpperCase();
 
     /*
      * Default Value
      */
-    public Long _id;
-    public String _userId;
-    public String _userPassword;
-    public Boolean _delFlg;
+    public long _id;
+    public String _userId = "";
+    public String _userPassword = "";
+    public boolean _delFlg;
 
     public MstUser(Parameter p) {
         super(p);
@@ -43,11 +43,10 @@ public class MstUser extends AbstractEntity implements Serializable {
     @Override
     public Map<String, Object> getDefaultValueMap() {
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("id", _id);
-        map.put("user_id", _userId);
-        map.put("user_password", _userPassword);
-        map.put("del_flg", _delFlg);
-        map.put(p.sysColumnName, p.sysColumnValue);
+        map.put("id".toUpperCase(), _id);
+        map.put("user_id".toUpperCase(), _userId);
+        map.put("user_password".toUpperCase(), _userPassword);
+        map.put("del_flg".toUpperCase(), _delFlg);
         return map;
     }
 

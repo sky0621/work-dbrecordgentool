@@ -21,7 +21,7 @@ public class ${shortClassName} extends AbstractEntity implements Serializable {
      * Column Name
      */
 <#list attributeModelList as attr>
-    public static final String ${attr.columnName} = "${attr.columnName}";
+    public static final String ${attr.columnName} = "${attr.columnName}".toUpperCase();
 </#list>
 
     /*
@@ -29,9 +29,15 @@ public class ${shortClassName} extends AbstractEntity implements Serializable {
      */
 <#list attributeModelList as attr>
   <#if (str!attr.attributeClass.simpleName) == "Date">
-    public java.util.${attr.attributeClass.simpleName} _${attr.name};
+    public java.util.${attr.attributeClass.simpleName} _${attr.name} = java.util.Calendar.getInstance().getTime();
+  <#elseif (str!attr.attributeClass.simpleName) == "Long">
+    public long _${attr.name};
+  <#elseif (str!attr.attributeClass.simpleName) == "Integer">
+    public int _${attr.name};
+  <#elseif (str!attr.attributeClass.simpleName) == "Boolean">
+    public boolean _${attr.name};
   <#else>
-    public ${attr.attributeClass.simpleName} _${attr.name};
+    public ${attr.attributeClass.simpleName} _${attr.name} = "";
   </#if>
 </#list>
 
@@ -48,9 +54,14 @@ public class ${shortClassName} extends AbstractEntity implements Serializable {
     public Map<String, Object> getDefaultValueMap() {
         Map<String, Object> map = new HashMap<String, Object>();
 <#list attributeModelList as attr>
-        map.put("${attr.columnName}", _${attr.name});
+  <#if (str!attr.columnName) == "INS_ID">
+        map.put("INS_ID", p.sysColumnValue);
+  <#elseif (str!attr.columnName) == "ins_id">
+        map.put("INS_ID", p.sysColumnValue);
+  <#else>
+        map.put("${attr.columnName}".toUpperCase(), _${attr.name});
+  </#if>
 </#list>
-        map.put(p.sysColumnName, p.sysColumnValue);
         return map;
     }
 

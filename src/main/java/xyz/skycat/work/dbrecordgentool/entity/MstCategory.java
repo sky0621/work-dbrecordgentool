@@ -18,14 +18,14 @@ public class MstCategory extends AbstractEntity implements Serializable {
     /*
      * Column Name
      */
-    public static final String category_id = "category_id";
-    public static final String category_name = "category_name";
+    public static final String category_id = "category_id".toUpperCase();
+    public static final String category_name = "category_name".toUpperCase();
 
     /*
      * Default Value
      */
-    public Long _categoryId;
-    public String _categoryName;
+    public long _categoryId;
+    public String _categoryName = "";
 
     public MstCategory(Parameter p) {
         super(p);
@@ -39,9 +39,8 @@ public class MstCategory extends AbstractEntity implements Serializable {
     @Override
     public Map<String, Object> getDefaultValueMap() {
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("category_id", _categoryId);
-        map.put("category_name", _categoryName);
-        map.put(p.sysColumnName, p.sysColumnValue);
+        map.put("category_id".toUpperCase(), _categoryId);
+        map.put("category_name".toUpperCase(), _categoryName);
         return map;
     }
 
