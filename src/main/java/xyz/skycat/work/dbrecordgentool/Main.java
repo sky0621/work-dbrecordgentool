@@ -1,5 +1,7 @@
 package xyz.skycat.work.dbrecordgentool;
 
+import static xyz.skycat.work.dbrecordgentool.AppConst.*;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -18,6 +20,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import xyz.skycat.work.dbrecordgentool.base.AbstractEntity;
+import xyz.skycat.work.dbrecordgentool.util.JdbcDiconUtil;
 
 public class Main {
 
@@ -25,20 +28,22 @@ public class Main {
 
 	// 対象テーブルの統計情報にロックがかかっていると、前段のS2JDBC-GENを用いたテーブルクラス自動生成が失敗する。
 	// 【ORA-38029: オブジェクト統計はロックされています】
-	// exec DBMS_STATS.UNLOCK_TABLE_STATS('owner','table name');　でロック解除。※全テーブル分・・・。
-	// ロックされているかどうかは、select table_name, stattype_locked from dba_tab_statistics where owner = 'owner';　でわかる。
+	// exec DBMS_STATS.UNLOCK_TABLE_STATS('owner','table
+	// name');　でロック解除。※全テーブル分・・・。
+	// ロックされているかどうかは、select table_name, stattype_locked from dba_tab_statistics
+	// where owner = 'owner';　でわかる。
 	// ALL だとロックされてる。
 
 	public static void main(String[] args) {
 		try {
-			Parameter p = new Parameter(args);
+			Parameter p = JdbcDiconUtil.parse();
+			p.sysColumnValue = args[0];
+
 			BufferedReader br = null;
 			InputStream inExcel = null;
 			Workbook wb = null;
 			try {
-				String basepath = System.getProperty("user.dir");
-				FileInputStream is = new FileInputStream(basepath
-						+ "/src/main/resources/config/targettables.txt");
+				FileInputStream is = new FileInputStream(TARGET_TABLES);
 
 				InputStreamReader in = new InputStreamReader(is, "SJIS");
 				br = new BufferedReader(in);
@@ -47,14 +52,12 @@ public class Main {
 				Class<? extends AbstractEntity> clz = null;
 				Constructor<? extends AbstractEntity> constructor = null;
 
-				inExcel = new FileInputStream(basepath
-						+ "/src/main/resources/insertdata/data.xls");
+				inExcel = new FileInputStream(INSERT_DATA);
 				wb = WorkbookFactory.create(inExcel);
 
 				while ((s = br.readLine()) != null) {
 					// System.out.println(s);
-					clz = Class.forName(
-							"xyz.skycat.work.dbrecordgentool.entity." + s)
+					clz = Class.forName(ENTITY_PACKAGE + s)
 							.asSubclass(AbstractEntity.class);
 					constructor = clz.getConstructor(Parameter.class);
 					AbstractEntity entity = constructor.newInstance(p);
