@@ -36,6 +36,8 @@ public class ${shortClassName} extends AbstractEntity implements Serializable {
     public int _${attr.name};
   <#elseif (str!attr.attributeClass.simpleName) == "Boolean">
     public boolean _${attr.name};
+  <#elseif (str!attr.attributeClass.simpleName) == "BigDecimal">
+    public java.math.BigDecimal _${attr.name} = new java.math.BigDecimal(0);
   <#else>
     public ${attr.attributeClass.simpleName} _${attr.name} = "";
   </#if>

@@ -21,6 +21,14 @@ import xyz.skycat.work.dbrecordgentool.base.AbstractEntity;
 
 public class Main {
 
+	// Oracleの場合、統計情報へのロック解除でテーブルクラス作成可
+
+	// 対象テーブルの統計情報にロックがかかっていると、前段のS2JDBC-GENを用いたテーブルクラス自動生成が失敗する。
+	// 【ORA-38029: オブジェクト統計はロックされています】
+	// exec DBMS_STATS.UNLOCK_TABLE_STATS('owner','table name');　でロック解除。※全テーブル分・・・。
+	// ロックされているかどうかは、select table_name, stattype_locked from dba_tab_statistics where owner = 'owner';　でわかる。
+	// ALL だとロックされてる。
+
 	public static void main(String[] args) {
 		try {
 			Parameter p = new Parameter(args);

@@ -33,12 +33,13 @@
       env="${env}"
       jdbcmanagername="${jdbcmanagername}"
       overwrite="true"
-      showCatalogName="true"
-      showSchemaName="true"
+      showCatalogName="false"
+      showSchemaName="false"
       showTableName="true"
       showColumnName="true"
-      showColumnDefinition="true"
-      showJoinColumn="true"
+      showColumnDefinition="false"
+      showJoinColumn="false"
+      tablenamepattern="CM_BRAND"
       classpathref="classpath">
         <jvmarg value="${vmarg.encoding}"/>
     </gen-entity>

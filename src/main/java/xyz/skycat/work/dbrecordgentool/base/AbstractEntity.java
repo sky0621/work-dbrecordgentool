@@ -1,6 +1,8 @@
 package xyz.skycat.work.dbrecordgentool.base;
 
-import static com.ninja_squad.dbsetup.Operations.*;
+import static com.ninja_squad.dbsetup.Operations.insertInto;
+import static com.ninja_squad.dbsetup.Operations.sequenceOf;
+import static com.ninja_squad.dbsetup.Operations.sql;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +60,9 @@ public abstract class AbstractEntity {
 
 		Operation INSERT = builder.build();
 
-		Operation ops = sequenceOf(DELETE_PARTIAL, INSERT);
+		// TODO 要見直し
+//		Operation ops = sequenceOf(DELETE_PARTIAL, INSERT);
+		Operation ops = sequenceOf(INSERT);
 
 		DbSetup dbSetup = new DbSetup(DbSetupUtil.getDestination(p.dbUrl,
 				p.dbUser, p.dbPassword), ops);
@@ -72,7 +76,9 @@ public abstract class AbstractEntity {
 	public abstract String getTableName();
 
 	protected String getWhereString() {
-		return "INS_ID = \"" + p.sysColumnValue + "\"";
+		// TODO 要見直し
+//		return "INS_MODULE_ID = \"" + p.sysColumnValue + "\"";
+		return "INS_MODULE_ID = \"Dum\"";
 	}
 
 	public abstract Map<String, Object> getDefaultValueMap();
