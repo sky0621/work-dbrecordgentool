@@ -24,6 +24,13 @@
 
   <taskdef resource="s2jdbc-gen-task.properties" classpathref="classpath"/>
 
+  <!-- http://s2container.seasar.org/2.4/ja/s2jdbc_gen/tasks/gen_entity.html -->
+  <!-- schemaName=""  -->
+	  <!-- tableNamePattern=""  -->
+	  <!-- ignoreTableNamePattern=""  -->
+	  <!-- idGeneration=""  -->
+	  <!-- schemaName=""  -->
+	  <!-- schemaName=""  -->
   <target name="gen-entity">
     <gen-entity
       rootpackagename="${rootpackagename}"
@@ -33,13 +40,12 @@
       env="${env}"
       jdbcmanagername="${jdbcmanagername}"
       overwrite="true"
-      showCatalogName="false"
-      showSchemaName="false"
+      showCatalogName="true"
+      showSchemaName="true"
       showTableName="true"
       showColumnName="true"
-      showColumnDefinition="false"
-      showJoinColumn="false"
-      tablenamepattern="CM_BRAND"
+      showColumnDefinition="true"
+      showJoinColumn="true"
       classpathref="classpath">
         <jvmarg value="${vmarg.encoding}"/>
     </gen-entity>

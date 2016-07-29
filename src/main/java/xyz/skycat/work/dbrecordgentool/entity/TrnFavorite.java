@@ -18,14 +18,16 @@ public class TrnFavorite extends AbstractEntity implements Serializable {
     /*
      * Column Name
      */
-    public static final String mst_movie_movie_id = "mst_movie_movie_id".toUpperCase();
-    public static final String mst_user_id = "mst_user_id".toUpperCase();
+    public static final String MST_MOVIE_MOVIE_ID = "MST_MOVIE_MOVIE_ID";
+    public static final String MST_USER_ID = "MST_USER_ID";
+    public static final String INS_MODULE_ID = "INS_MODULE_ID";
 
     /*
      * Default Value
      */
-    public long _mstMovieMovieId;
-    public long _mstUserId;
+    public long mstMovieMovieId;
+    public long mstUserId;
+    public String insModuleId = "";
 
     public TrnFavorite(Parameter p) {
         super(p);
@@ -33,14 +35,15 @@ public class TrnFavorite extends AbstractEntity implements Serializable {
 
     @Override
     public String getTableName() {
-        return "trn_favorite";
+        return "TRN_FAVORITE";
     }
 
     @Override
     public Map<String, Object> getDefaultValueMap() {
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("mst_movie_movie_id".toUpperCase(), _mstMovieMovieId);
-        map.put("mst_user_id".toUpperCase(), _mstUserId);
+        map.put("MST_MOVIE_MOVIE_ID", mstMovieMovieId);
+        map.put("MST_USER_ID", mstUserId);
+        map.put("INS_MODULE_ID", p.sysColumnValue);
         return map;
     }
 

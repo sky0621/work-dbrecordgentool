@@ -18,14 +18,16 @@ public class MstRecommend extends AbstractEntity implements Serializable {
     /*
      * Column Name
      */
-    public static final String recommend_id = "recommend_id".toUpperCase();
-    public static final String recommend_title = "recommend_title".toUpperCase();
+    public static final String RECOMMEND_ID = "RECOMMEND_ID";
+    public static final String RECOMMEND_TITLE = "RECOMMEND_TITLE";
+    public static final String INS_MODULE_ID = "INS_MODULE_ID";
 
     /*
      * Default Value
      */
-    public long _recommendId;
-    public String _recommendTitle = "";
+    public long recommendId;
+    public String recommendTitle = "";
+    public String insModuleId = "";
 
     public MstRecommend(Parameter p) {
         super(p);
@@ -33,14 +35,15 @@ public class MstRecommend extends AbstractEntity implements Serializable {
 
     @Override
     public String getTableName() {
-        return "mst_recommend";
+        return "MST_RECOMMEND";
     }
 
     @Override
     public Map<String, Object> getDefaultValueMap() {
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("recommend_id".toUpperCase(), _recommendId);
-        map.put("recommend_title".toUpperCase(), _recommendTitle);
+        map.put("RECOMMEND_ID", recommendId);
+        map.put("RECOMMEND_TITLE", recommendTitle);
+        map.put("INS_MODULE_ID", p.sysColumnValue);
         return map;
     }
 

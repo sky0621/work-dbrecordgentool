@@ -5,6 +5,7 @@
 	<include path="jta.dicon"/>
 
 	<!-- for Oracle -->
+	<!--
 	<component name="xaDataSource"
 		class="org.seasar.extension.dbcp.impl.XADataSourceImpl">
 		<property name="driverClassName">
@@ -16,8 +17,8 @@
 		<property name="user">"xxxx"</property>
 		<property name="password">"xxxx"</property>
 	</component>
+	-->
 
-	<!--
 	<component name="xaDataSource"
 		class="org.seasar.extension.dbcp.impl.XADataSourceImpl">
 		<property name="driverClassName">
@@ -29,7 +30,6 @@
 		<property name="user">"root"</property>
 		<property name="password">"root"</property>
 	</component>
-	-->
 
 	<component name="connectionPool"
 		class="org.seasar.extension.dbcp.impl.ConnectionPoolImpl">

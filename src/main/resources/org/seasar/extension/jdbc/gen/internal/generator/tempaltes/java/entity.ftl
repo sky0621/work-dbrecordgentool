@@ -21,25 +21,37 @@ public class ${shortClassName} extends AbstractEntity implements Serializable {
      * Column Name
      */
 <#list attributeModelList as attr>
-    public static final String ${attr.columnName} = "${attr.columnName}".toUpperCase();
+    public static final String ${attr.columnName?upper_case} = "${attr.columnName?upper_case}";
 </#list>
 
     /*
      * Default Value
      */
 <#list attributeModelList as attr>
-  <#if (str!attr.attributeClass.simpleName) == "Date">
-    public java.util.${attr.attributeClass.simpleName} _${attr.name} = java.util.Calendar.getInstance().getTime();
+  <#if (str!attr.attributeClass.simpleName) == "Date" || (str!attr.attributeClass.simpleName) == "Timestamp" || (str!attr.attributeClass.simpleName) == "Time">
+    public java.util.Date ${attr.name} = java.util.Calendar.getInstance().getTime();
   <#elseif (str!attr.attributeClass.simpleName) == "Long">
-    public long _${attr.name};
+    public long ${attr.name};
   <#elseif (str!attr.attributeClass.simpleName) == "Integer">
-    public int _${attr.name};
+    public int ${attr.name};
   <#elseif (str!attr.attributeClass.simpleName) == "Boolean">
-    public boolean _${attr.name};
+    public boolean ${attr.name};
   <#elseif (str!attr.attributeClass.simpleName) == "BigDecimal">
-    public java.math.BigDecimal _${attr.name} = new java.math.BigDecimal(0);
+    public java.math.BigDecimal ${attr.name} = new java.math.BigDecimal(0);
+  <#elseif (str!attr.attributeClass.simpleName) == "byte[]">
+    public java.util.List<Byte> ${attr.name} = new java.util.ArrayList<Byte>();
+  <#elseif (str!attr.attributeClass.simpleName) == "byte">
+    public byte ${attr.name};
+  <#elseif (str!attr.attributeClass.simpleName) == "Double">
+    public double ${attr.name};
+  <#elseif (str!attr.attributeClass.simpleName) == "Float">
+    public float ${attr.name};
+  <#elseif (str!attr.attributeClass.simpleName) == "Short">
+    public short ${attr.name};
+  <#elseif (str!attr.attributeClass.simpleName) == "Byte">
+    public byte ${attr.name};
   <#else>
-    public ${attr.attributeClass.simpleName} _${attr.name} = "";
+    public ${attr.attributeClass.simpleName} ${attr.name} = "";
   </#if>
 </#list>
 
@@ -49,19 +61,17 @@ public class ${shortClassName} extends AbstractEntity implements Serializable {
 
     @Override
     public String getTableName() {
-        return "${tableName}";
+        return "${tableName?upper_case}";
     }
 
     @Override
     public Map<String, Object> getDefaultValueMap() {
         Map<String, Object> map = new HashMap<String, Object>();
 <#list attributeModelList as attr>
-  <#if (str!attr.columnName) == "INS_ID">
-        map.put("INS_ID", p.sysColumnValue);
-  <#elseif (str!attr.columnName) == "ins_id">
-        map.put("INS_ID", p.sysColumnValue);
+  <#if (str!attr.columnName?upper_case) == "INS_MODULE_ID">
+        map.put("INS_MODULE_ID", p.sysColumnValue);
   <#else>
-        map.put("${attr.columnName}".toUpperCase(), _${attr.name});
+        map.put("${attr.columnName?upper_case}", ${attr.name});
   </#if>
 </#list>
         return map;

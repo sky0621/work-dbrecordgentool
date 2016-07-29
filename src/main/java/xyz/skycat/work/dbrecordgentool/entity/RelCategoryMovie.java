@@ -18,14 +18,16 @@ public class RelCategoryMovie extends AbstractEntity implements Serializable {
     /*
      * Column Name
      */
-    public static final String mst_movie_movie_id = "mst_movie_movie_id".toUpperCase();
-    public static final String mst_category_category_id = "mst_category_category_id".toUpperCase();
+    public static final String MST_MOVIE_MOVIE_ID = "MST_MOVIE_MOVIE_ID";
+    public static final String MST_CATEGORY_CATEGORY_ID = "MST_CATEGORY_CATEGORY_ID";
+    public static final String INS_MODULE_ID = "INS_MODULE_ID";
 
     /*
      * Default Value
      */
-    public long _mstMovieMovieId;
-    public long _mstCategoryCategoryId;
+    public long mstMovieMovieId;
+    public long mstCategoryCategoryId;
+    public String insModuleId = "";
 
     public RelCategoryMovie(Parameter p) {
         super(p);
@@ -33,14 +35,15 @@ public class RelCategoryMovie extends AbstractEntity implements Serializable {
 
     @Override
     public String getTableName() {
-        return "rel_category_movie";
+        return "REL_CATEGORY_MOVIE";
     }
 
     @Override
     public Map<String, Object> getDefaultValueMap() {
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("mst_movie_movie_id".toUpperCase(), _mstMovieMovieId);
-        map.put("mst_category_category_id".toUpperCase(), _mstCategoryCategoryId);
+        map.put("MST_MOVIE_MOVIE_ID", mstMovieMovieId);
+        map.put("MST_CATEGORY_CATEGORY_ID", mstCategoryCategoryId);
+        map.put("INS_MODULE_ID", p.sysColumnValue);
         return map;
     }
 
