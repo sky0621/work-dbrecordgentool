@@ -36,60 +36,78 @@ public class JdbcDiconUtil {
 			Element root = doc.getDocumentElement();
 			NodeList children = root.getChildNodes();
 			for (int i = 0; i < children.getLength(); i++) {
-				Node child = children.item(i);
-				if (Node.ELEMENT_NODE != child.getNodeType()) {
+				if (isNotDataSourceNode(children.item(i))) {
 					continue;
 				}
-				if (!"component".equals(child.getNodeName())) {
-					continue;
+				String dbUrl = getTargetPropertyValue(children.item(i), "URL");
+				if (dbUrl != null) {
+					param.dbUrl = dbUrl;
 				}
-				NamedNodeMap attrMap = child.getAttributes();
-				if (attrMap == null) {
-					continue;
+				String dbUser = getTargetPropertyValue(children.item(i), "user");
+				if (dbUser != null) {
+					param.dbUser = dbUser;
 				}
-				Node nameNode = attrMap.getNamedItem("name");
-				if (nameNode == null) {
-					continue;
-				}
-				if (!"xaDataSource".equals(nameNode.getNodeValue())) {
-					continue;
-				}
-				NodeList propertyList = child.getChildNodes();
-				for (int j = 0; j < propertyList.getLength(); j++) {
-					Node propertyNode = propertyList.item(j);
-					if (propertyNode == null) {
-						continue;
-					}
-					NamedNodeMap attrMap2 = propertyNode.getAttributes();
-					if (attrMap2 == null) {
-						continue;
-					}
-					Node urlNode = attrMap2.getNamedItem("URL");
-					if (urlNode != null) {
-						param.dbUrl = urlNode.getNodeValue();
-					}
-					Node userNode = attrMap2.getNamedItem("user");
-					if (userNode != null) {
-						param.dbUser = userNode.getNodeValue();
-					}
-					Node passwordNode = attrMap2.getNamedItem("password");
-					if (passwordNode != null) {
-						param.dbPassword = passwordNode.getNodeValue();
-					}
+				String dbPassword = getTargetPropertyValue(children.item(i),
+						"password");
+				if (dbPassword != null) {
+					param.dbPassword = dbPassword;
 				}
 			}
 		} catch (ParserConfigurationException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		} catch (SAXException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 
 		return param;
+	}
+
+	private static boolean isNotDataSourceNode(Node node) {
+		if (Node.ELEMENT_NODE != node.getNodeType()) {
+			return true;
+		}
+		if (!"component".equals(node.getNodeName())) {
+			return true;
+		}
+		NamedNodeMap attrMap = node.getAttributes();
+		if (attrMap == null) {
+			return true;
+		}
+		Node nameNode = attrMap.getNamedItem("name");
+		if (nameNode == null) {
+			return true;
+		}
+		if (!"xaDataSource".equals(nameNode.getNodeValue())) {
+			return true;
+		}
+		return false;
+	}
+
+	private static String getTargetPropertyValue(Node dataSourceNode,
+			String name) {
+		String propertyValue = null;
+		NodeList propertyList = dataSourceNode.getChildNodes();
+		for (int j = 0; j < propertyList.getLength(); j++) {
+			Node propertyNode = propertyList.item(j);
+			if (propertyNode == null) {
+				continue;
+			}
+			NamedNodeMap attrMap = propertyNode.getAttributes();
+			if (attrMap == null) {
+				continue;
+			}
+			for (int k = 0; k < attrMap.getLength(); k++) {
+				Node at = attrMap.item(k);
+				if ("name".equals(at.getNodeName())
+						&& name.equals(at.getNodeValue())) {
+					propertyValue = propertyNode.getTextContent().replace("\"", "").replace("\n", "").replace("\t", "");
+				}
+			}
+		}
+
+		return propertyValue;
 	}
 
 }

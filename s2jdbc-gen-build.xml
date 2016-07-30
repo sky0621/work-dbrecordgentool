@@ -6,7 +6,6 @@
   <property name="entityfilepattern" value="xyz/skycat/work/dbrecordgentool/entity/*.java"/>
   <property name="javafiledestdir" value="src/main/java"/>
   <property name="javafileencoding" value="UTF-8"/>
-  <property name="env" value="ut"/>
   <property name="jdbcmanagername" value="jdbcManager"/>
   <condition property="vmarg.encoding" value="-Dfile.encoding=UTF-8" else="">
     <isset property="eclipse.pdebuild.home"/>
@@ -37,7 +36,6 @@
       entitypackagename="${entitypackagename}"
       javafiledestdir="${javafiledestdir}"
       javafileencoding="${javafileencoding}"
-      env="${env}"
       jdbcmanagername="${jdbcmanagername}"
       overwrite="true"
       showCatalogName="true"

@@ -36,6 +36,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		try {
+			checkArgs(args);
 			Parameter p = JdbcDiconUtil.parse();
 			p.sysColumnValue = args[0];
 
@@ -57,8 +58,8 @@ public class Main {
 
 				while ((s = br.readLine()) != null) {
 					// System.out.println(s);
-					clz = Class.forName(ENTITY_PACKAGE + s)
-							.asSubclass(AbstractEntity.class);
+					clz = Class.forName(ENTITY_PACKAGE + s).asSubclass(
+							AbstractEntity.class);
 					constructor = clz.getConstructor(Parameter.class);
 					AbstractEntity entity = constructor.newInstance(p);
 
@@ -117,6 +118,14 @@ public class Main {
 			System.exit(1);
 		}
 		System.exit(0);
+	}
+
+	private static void checkArgs(String[] args) {
+
+		if (args == null || args.length != 1) {
+			throw new IllegalArgumentException(
+					"引数は「INS_MODULE_IDカラムにセットする識別子」１つ固定です。");
+		}
 	}
 
 	private static Object getCellValue(Cell cell) {
